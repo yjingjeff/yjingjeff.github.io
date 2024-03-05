@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Outdoor Project Storefront</title>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div id="loadingSpinner" class="spinner-overlay" hidden>
+  </div>
+
+  <div id="contentToBlur">
+    <div class="header">
+      <img src="images/AIDR_logo.png" alt="AIDR - Your Renovation Partner" />
+    </div>
+
+    <div class="ai-input-form">
+      <div class="product-tile" id="selectStyle"> 
+        <!--input type="text" id="styleSelect", value = "Modern" placeholder="my style" />-->
+        <select id = "style">
+            <option> Select Style </option>
+        </select>
+          <label for="style">Style</label>
+      </div>
+      
+      <div class="input-wrapper">
+        <input type="number" id="width" value="40" placeholder="Space Width" />
+        <label for="width">Space Width</label>
+      </div>
+      <div class="input-wrapper">
+        <input type="number" id="depth" value="40" placeholder="Space Depth" />
+        <label for="depth">Space Depth</label>
+      </div>
+      <!--<div class="input-wrapper">
+        <input type="text" id="prompt" value="A backyard with winding patio paths and a kitchen and dinning area for entertainment" placeholder="Enter Prompt" />
+        <label for="prompt">Initial Prompt</label>
+      </div> -->
+
+      <div class="input-wrapper">
+        <input type="text" id="address" value="15 Rosemeade Place" placeholder="Address" />
+        <label for="Address">Address</label>
+      </div>
+      <div class="input-wrapper">
+        <input type="text" id="city" value = "Ottawa" placeholder="Location" />
+        <label for="city">City</label>
+      </div>
+      <button id="fetchButton">Send Input</button>
+    </div>
+
+    <div id = "commentsSections" class="coments-container">
+      <h2>Supple Insights</h2>
+      <div id = "commentsList" class = "comments-list">
+
+      </div>
+    </div>
+    <!-- Popup Modal for Improvement Areas -->
+    <div id="improvementModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Select Features to Include</h2>
+        <div id="improvementButtonsContainer" class="improvement-buttons">
+          <button class="improve-btn" data-improve="Wooden Fence">Wooden Fence</button>
+          <button class="improve-btn" data-improve="Hedged Fence">Hedged Fence</button>
+          <button class="improve-btn" data-improve="Stone Walls">Stone Walls</button>
+          <button class="improve-btn" data-improve="Gazebo">Gazebo</button>
+          <button class="improve-btn" data-improve="Pergola">Pergola</button>
+          <button class="improve-btn" data-improve="Deck">Deck</button>
+          <button class="improve-btn" data-improve="Bridge">Bridge</button>
+          <button class="improve-btn" data-improve="Sitting Area">Sitting Area</button>
+        </div>
+        <button id="submitImprovements" class="submit-button">Submit</button>
+      </div>
+    </div>
+
+    <div id="productContainer" class="product-container">
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>

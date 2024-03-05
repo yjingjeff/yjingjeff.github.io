@@ -1,0 +1,392 @@
+
+body, button, input, label {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4; /* Light grey background */
+    color: #333;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+  }
+
+  .header img {
+    display: block;
+    max-width: 650px; /* Adjust as needed */
+    margin: 5px auto;
+  }
+
+  .ai-input-form {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
+
+  .input-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ai-input-form input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+    margin-bottom: 5px;
+  }
+
+  .ai-input-form label {
+    font-size: 0.8em;
+    color: #666;
+  }
+
+
+.header {
+    background-color: #2D3047;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    margin-bottom: 30px;
+}
+
+/* Add some modern styles for buttons */
+.ai-input-form button {
+    background-color: #008cba; /* A modern blue */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    font-weight: 700; /* Montserrat bold */
+  }
+
+
+  .ai-input-form button:hover {
+    background-color: #005f73; /* A darker blue for hover state */
+    transform: translateY(-2px); /* A slight lift when hovered */
+  }
+
+
+  /* Comments Section */
+  .comments-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .comments-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .comments-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adapt number of columns to the container size */
+    gap: 10px;
+    padding: 0;
+    list-style-type: none; /* Remove list bullets */
+  }
+
+  .comment-item {
+    background-color: #fff;
+    padding: 15px;
+    margin: 0; /* Remove margin for grid layout */
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-bottom: 7px solid #4db8ac; /* Add a light border */
+    border-left: 5px solid #4db8ac;
+    border-top: 1px solid gray;
+    border-right: 1px solid gray;
+    margin-bottom: 10px; /* Add some space between comments */
+    transition: transform 0.3s;
+
+  }
+
+  .comment-item:hover{
+    transform: scale(1.02);
+  }
+
+  .comment-text {
+    color: #555;
+    font-size: 0.9em;
+  }
+
+  .comment-author {
+    font-size: 0.8em;
+    color: #777;
+    margin-top: 5px;
+    text-align: right;
+  }
+
+.product-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 0 50px;
+    /* Padding on the sides */
+}
+
+.product-tile {
+
+    background-color: #66d9b8;
+    color: white;
+    border: 1px solid #4db8ac;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    transition: transform 0.3s;
+}
+
+.product-tile:hover {
+    transform: scale(1.05);
+}
+
+/* Stat Bar Code Below*/
+
+.stat-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 5px 0;
+}
+
+.stat-bar-outer {
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    width: 80%;
+    /* responsive width for the bar container */
+    height: 10px;
+    overflow: hidden;
+}
+
+.stat-bar {
+    height: 100%;
+    background-color: #4db8ac;
+    border-radius: 5px;
+}
+
+@keyframes growBar {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: var(--target-width);
+    }
+
+    /* Use the CSS variable */
+}
+
+.stat-bar-outer {
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    width: 60%;
+    /* Use 100% if you want the bar to fit the full width of the tile */
+    height: 10px;
+    overflow: hidden;
+}
+
+.stat-bar.animate-grow {
+    animation: growBar 1.2s ease-out forwards;
+    /* Adjust duration as needed */
+}
+
+/* Spinner Code Below */
+
+.spinner-overlay {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    /* Ensure it is above contentToBlur */
+}
+
+.spinner {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #38f5e8;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.content-wrapper:not(.body-blur) {
+    filter: none;
+}
+
+.content-blur {
+    filter: blur(5px);
+}
+
+/* Modal Stuff */
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    z-index: 2;
+    /* Above spinner */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Dimmed background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    width: auto;
+    max-width: 500px;
+    /* Modal width */
+    text-align: center;
+    /* Center modal content */
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: modalEntry 0.3s ease-out forwards;
+}
+
+/* Animation for modal entry */
+@keyframes modalEntry {
+    0% {
+      top: -50%;
+      opacity: 0;
+    }
+    100% {
+      top: 50%;
+      opacity: 1;
+    }
+  }
+
+  /* Animation for modal exit */
+@keyframes modalExit {
+    0% {
+      top: 50%;
+      opacity: 1;
+    }
+    100% {
+      top: -50%;
+      opacity: 0;
+    }
+  }
+
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Style the improvement buttons to be larger and tiled */
+.improvement-buttons button {
+    flex: 1 1 auto; /* Flex grow and shrink */
+    margin: 5px;
+    padding: 15px 20px;
+    font-size: 18px; /* Larger font size */
+  }
+
+  /* Ensure the buttons container is full width */
+  .improvement-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Create a grid layout for buttons */
+    gap: 10px;
+    padding: 0;
+  }
+
+
+.improve-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    /* Rounded corners */
+    background-color: #e7e7e7;
+    /* Neutral color */
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+    /* Smooth transition for visual feedback */
+}
+
+
+.improve-btn:hover {
+    background-color: #d0d0d0;
+    /* Hover state color */
+}
+
+.improve-btn.selected {
+    background-color: #4CAF50;
+    /* Selected state color */
+    color: white;
+    transform: scale(1.05);
+    /* Slightly increase size */
+}
+
+
+.submit-button {
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4db8ac;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.submit-button:hover {
+    background-color: #3a9d8f;
+}
+
+#submitImprovements {
+    display: block;
+    margin-top: 20px;
+    width: 100%;
+}
