@@ -274,7 +274,7 @@ body {
     padding: 20px;
     border-radius: 5px;
     width: auto;
-    max-width: 500px;
+    max-width: 1000px;  /* increased from 500px */
     /* Modal width */
     text-align: center;
     /* Center modal content */
@@ -325,12 +325,12 @@ body {
 }
 
 /* Style the improvement buttons to be larger and tiled */
-.improvement-buttons button {
-    flex: 1 1 auto; /* Flex grow and shrink */
+/*.improvement-buttons button {  */
+   /* flex: 1 1 auto; 
     margin: 5px;
-    padding: 15px 20px;
-    font-size: 18px; /* Larger font size */
-  }
+    padding: 10px 10px;
+    font-size: 12px; 
+  } */
 
   /* Ensure the buttons container is full width */
   .improvement-buttons {
@@ -342,10 +342,10 @@ body {
 
 
 .improve-btn {
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 10px 10px;
+    font-size: 12px;  /* reduced from 16 */
     border: none;
-    border-radius: 20px;
+    border-radius: 10px;
     /* Rounded corners */
     background-color: #e7e7e7;
     /* Neutral color */
@@ -371,8 +371,9 @@ body {
 
 
 .submit-button {
-    padding: 10px 20px;
-    font-size: 18px;
+    padding: 10px 20px; 
+    margin: 25px 0;  /* added */
+    font-size: 16px;
     border: none;
     border-radius: 5px;
     background-color: #4db8ac;

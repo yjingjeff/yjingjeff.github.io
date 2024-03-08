@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let aiRequestCompleted = false;
   let isRequestInProgress = false; //flag for API abuse prevention
 
-  let styles = ["Italian", "French", "English", "Chinese", "Japanese",
+  let styles = ["Italian", "French", "English", "Chinese", "Japanese", "Mediterranean",
   "Modern", "Contemporary", "Classic", "Rustic", "Oriental", "Boheimain"];
 
   var select = document.getElementById("style")

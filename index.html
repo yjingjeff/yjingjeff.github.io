@@ -13,7 +13,7 @@
 
   <div id="contentToBlur">
     <div class="header">
-      <img src="images/AIDR_logo.png" alt="AIDR - Your Renovation Partner" />
+      <img src="images/title7.png" alt="AIDR - Your Renovation Partner" />
     </div>
 
     <div class="ai-input-form">
@@ -50,7 +50,7 @@
     </div>
 
     <div id = "commentsSections" class="coments-container">
-      <h2>Supple Insights</h2>
+      <h2> Insights</h2>
       <div id = "commentsList" class = "comments-list">
 
       </div>
@@ -59,16 +59,71 @@
     <div id="improvementModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
-        <h2>Select Features to Include</h2>
-        <div id="improvementButtonsContainer" class="improvement-buttons">
+        <h3>Select Fence/Wall to Include</h3>
+        <div id="fenceButtonsContainer" class="improvement-buttons">
           <button class="improve-btn" data-improve="Wooden Fence">Wooden Fence</button>
           <button class="improve-btn" data-improve="Hedged Fence">Hedged Fence</button>
-          <button class="improve-btn" data-improve="Stone Walls">Stone Walls</button>
+          <button class="improve-btn" data-improve="Stone Wall">Stone Wall</button>
+          <button class="improve-btn" data-improve="Moss Wall">Moss Wall</button>
+          <button class="improve-btn" data-improve="Retaining Wall">Retaining Wall</button>
+          <button class="improve-btn" data-improve="Square-woven Lattice Wall">Square-woven Lattice Wall</button>
+        </div>
+        <h3>Select Structure/Shields to Include</h3>
+        <div id="structButtonsContainer" class="improvement-buttons">
           <button class="improve-btn" data-improve="Gazebo">Gazebo</button>
           <button class="improve-btn" data-improve="Pergola">Pergola</button>
-          <button class="improve-btn" data-improve="Deck">Deck</button>
-          <button class="improve-btn" data-improve="Bridge">Bridge</button>
-          <button class="improve-btn" data-improve="Sitting Area">Sitting Area</button>
+          <button class="improve-btn" data-improve="Sunshade Arbbor">Sunshade Arbbor</button>
+          <button class="improve-btn" data-improve="Sails">Sails</button>
+          <button class="improve-btn" data-improve="Umbrella">Umbrella</button>
+
+        </div>
+        <h3>Select Inground/Pathway Features to Include</h3>
+        <div id="ingroundButtonsContainer" class="improvement-buttons">
+          <button class="improve-btn" data-improve="Wooden Deck">Wooden Deck</button>
+          <button class="improve-btn" data-improve="Brick Patio">Brick Patio</button>
+          <button class="improve-btn" data-improve="Stone Patio">Stone Patio</button>
+          <button class="improve-btn" data-improve="Winding Stone Walkway">Winding Stone Walkway</button>
+          <button class="improve-btn" data-improve="Winding Stone Walkway">Winding Stone Walkway</button>
+          <button class="improve-btn" data-improve="Curved Pebbled Stone Path">Curved Pebbled Stone Path</button>
+          <button class="improve-btn" data-improve="Curved Flagstone Path">Curved Flagstone Path</button>
+          <!--button class="improve-btn" data-improve="Wooden Bridge">Wooden Bridge</button-->
+        </div>
+        <h3>Select Lighting/Fire/Plants to Include</h3>
+        <div id="lightsButtonsContainer" class="improvement-buttons">
+          <button class="improve-btn" data-improve="Hanging String Lights">Hanging String Lights</button>
+          <button class="improve-btn" data-improve="Wall Sconce Lights">Wall Sconce Lights</button>
+          <button class="improve-btn" data-improve="In-ground Lanscape Lights">In-ground Lanscape Lights</button>
+          <button class="improve-btn" data-improve="Fireplace">A fireplace</button>
+          <button class="improve-btn" data-improve="Firepit">A firepit</button>
+          <button class="improve-btn" data-improve="Tropical Plants">Tropical Plants</button>
+          <button class="improve-btn" data-improve="Northern Climate Plants">Northern Climate Plants</button>
+          <!--button class="improve-btn" data-improve="Wooden Bridge">Wooden Bridge</button-->
+        </div>
+        <h3>Select Entertainment Features to Include</h3>
+        <div id="entertainButtonsContainer" class="improvement-buttons">
+          <button class="improve-btn" data-improve="Dinning Area">Dinning Area</button>
+          <button class="improve-btn" data-improve="Sitting Area with Sofas">Sitting Area with Sofas</button>
+          <button class="improve-btn" data-improve="Movie Screen">Movie Screen</button>
+          <button class="improve-btn" data-improve="LED TV">LED TV</button>
+          <button class="improve-btn" data-improve="A Bar">A Bar</button>
+        </div>
+        <h3>Select Water Features to Include</h3>
+        <div id="waterButtonsContainer" class="improvement-buttons">
+          <button class="improve-btn" data-improve="A Fountain">A Fountain</button>
+          <button class="improve-btn" data-improve="A Waterfall">A Waterfall</button>
+          <button class="improve-btn" data-improve="An Inground Pond">An Inground Pond</button>
+          <button class="improve-btn" data-improve="A Swimming Pool">A Swimming Pool</button>
+          <button class="improve-btn" data-improve="A Wooden Bridge">A Wooden Garden Bridge</button>
+        </div>
+        <h3>Select Kitchen Features to Include</h3>
+        <div id="kitchenButtonsContainer" class="improvement-buttons">
+          <button class="improve-btn" data-improve="A Kitchen Island">A Kitchen Island</button>
+          <button class="improve-btn" data-improve="Cabinets">Cabinets</button>
+          <button class="improve-btn" data-improve="Countertop">Countertop</button>
+          <button class="improve-btn" data-improve="Appliance">Stainless Steel Appliances</button>
+          <button class="improve-btn" data-improve="BBQ">BBQ</button>
+          <button class="improve-btn" data-improve="Pizza Oven">Pizza Oven</button>
+          <!--button class="improve-btn" data-improve="Wooden Bridge">Wooden Bridge</button-->
         </div>
         <button id="submitImprovements" class="submit-button">Submit</button>
       </div>
