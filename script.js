@@ -28,10 +28,11 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function showModal() {
-    if (!isRequestInProgress) {
+    ///temporary unblock redrawn modal for easy testing
+    ///if (!isRequestInProgress) {
       modal.style.display = "block";
-    }
-    else { alert('Request already in progress.')}
+    ///}
+    ///else { alert('Request already in progress.')}
   }
 
   function hideModal() {
@@ -65,9 +66,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   async function submitImprovementsHandler() {
     console.log("Submit Button Pressed: ", aiRequestCompleted);
-    if (isRequestInProgress) {
+    /* if (isRequestInProgress) {
       console.log("Request is already in progress.");
-    }
+    } */
 
     isRequestInProgress = true; //request start
 
@@ -138,6 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
       address: document.getElementById("address").value,
       city: document.getElementById("city").value,
       style: document.getElementById("style").value,
+      model: document.getElementById("model").value,
     };
   }
 
@@ -196,10 +198,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   document.getElementById("fetchButton").addEventListener("click", async function () {
-    if (isRequestInProgress){
+    /* if (isRequestInProgress){
       alert('Request is already in progress');
       return;
-    }
+    } */
 
     aiRequestCompleted = false;
     showModal(); //Immediately show modal
