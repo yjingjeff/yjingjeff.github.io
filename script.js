@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let aiRequestCompleted = false;
   let isRequestInProgress = false; //flag for API abuse prevention
 
+  let userProfile = {};
   let styles = ["Italian", "French", "English", "Chinese", "Japanese", "Mediterranean",
   "Modern", "Contemporary", "Classic", "Rustic", "Oriental", "Boheimain"];
 
@@ -63,10 +64,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   async function submitImprovementsHandler() {
-    console.log("AI request completed: ", aiRequestCompleted);
+    console.log("Submit Button Pressed: ", aiRequestCompleted);
     if (isRequestInProgress) {
       console.log("Request is already in progress.");
-      return; // Exit if a request is already in progress
     }
 
     isRequestInProgress = true; //request start
@@ -76,29 +76,27 @@ document.addEventListener("DOMContentLoaded", function () {
       showSpinner();
       await waitForAIResponse();
     }
-    // At this point, AI response is guaranteed to have completed
-    const selectedImprovements = getSelectedImprovementsFromModal();
-    const finalInputDict = combineAIResponseAndUserSelections(aiResponseData, selectedImprovements);
 
-
-    try {
-      const city = document.getElementById("userLocation").value;
-      await callBackendWithUpdatedValues(city, finalInputDict);
+    /*try {
+      ///const city = document.getElementById("userLocation").value;
+      ///await callBackendWithUpdatedValues(city, finalInputDict);
     } catch (error) {
       console.error("Error during backend call:", error);
     } finally {
       hideSpinner();
       isRequestInProgress = false; // Reset the flag when done
-    }
+    }*/
   }
 
+
+  //Called inside Submit button click
   function waitForAIResponse() {
     let attempts = 0;
     return new Promise((resolve) => {
       const checkAICompletion = setInterval(() => {
         attempts++;
         console.log(`Attempt ${attempts}`);
-        if (aiRequestCompleted || attempts > 50) { // Let's say after 50 attempts we stop checking
+        if (aiRequestCompleted || attempts > 5) { // Let's say after 50 attempts we stop checking
           clearInterval(checkAICompletion);
           resolve();
           if (!aiRequestCompleted) {
@@ -109,13 +107,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  function prepareSubmitImprovementsButton() {
-    // Remove any existing event listeners to prevent stacking
-    submitImprovementsBtn.removeEventListener("click", submitImprovementsHandler);
-
-    // Add a fresh event listener
-    submitImprovementsBtn.addEventListener("click", submitImprovementsHandler);
-  }
 
   // Assuming submitImprovementsBtn is correctly initialized elsewhere
   submitImprovementsBtn.onclick = async function () {
@@ -125,30 +116,17 @@ document.addEventListener("DOMContentLoaded", function () {
     // Check if AI response has completed
     if (!aiRequestCompleted) {
       // If AI response is not ready, show spinner and wait for AI response
+      const selectedImprovements = getSelectedImprovementsFromModal();
+      console.log("here inside submit to call entry");
+      console.log(selectedImprovements);
+
       showSpinner();
       await waitForAIResponse();
     }
 
-    // At this point, AI response is guaranteed to have completed
-    // Process selected improvements and AI response
-    const selectedImprovements = getSelectedImprovementsFromModal();
-    const finalInputDict = combineAIResponseAndUserSelections(aiResponseData, selectedImprovements);
-
     // Hide the modal
     hideModal();
 
-    // Once the final input is ready, proceed with backend call
-    const city = document.getElementById("userLocation").value; // Grab city
-    await callBackendWithUpdatedValues(city, finalInputDict);
-
-    // At this point, callBackendWithUpdatedValues has completed, and you can now use aiResponseData
-// if (aiResponseData && aiResponseData.Comments) {
-//   displayAIComments(aiResponseData.Comments);
-// } else {
-//   console.error('No comments to display or comments are not in array format', aiResponseData.Comments);
-// }
-
-    // Hide spinner once the backend call is initiated or completed based on your app flow
     hideSpinner();
   };
 
@@ -163,25 +141,8 @@ document.addEventListener("DOMContentLoaded", function () {
     };
   }
 
-  async function callBackendWithUpdatedValues(city, inputDict) {
-    console.log("Calling backend with: ", JSON.stringify({ city, input_dict: inputDict }));
-    try {
-      const response = await fetch("http://localhost:3000/runBackend", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ city, input_dict: inputDict }),
-      });
-      if (!response.ok) throw new Error("Network response was not ok");
-      const data = await response.json();
-      console.log("Backend response: ", data);
-      // Update UI with backend response
-      updateUIWithProducts(data);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  }
-
   // Toggle button selection and update selectedImprovements object
+  // This needs to be here to accept user input on modal
   btns.forEach(btn => {
     btn.onclick = function () {
       const improvement = this.getAttribute("data-improve");
@@ -224,149 +185,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Function to get selected improvements from modal
   function getSelectedImprovementsFromModal() {
-    let selectedImprovements = {};
+    //let selectedImprovements = {};
     // Assuming each button has a class 'improve-btn' and is toggled with 'selected' class upon selection
     document.querySelectorAll('.improve-btn.selected').forEach(btn => {
       const improvement = btn.getAttribute('data-improve');
-      selectedImprovements[improvement] = true; // Marking selected improvements as true
+      userProfile[btn.parentNode.getAttribute("id")] = improvement; // Marking selected improvements as true
     });
-    return selectedImprovements;
+    return userProfile;
   }
 
-  function combineAIResponseAndUserSelections(aiData, selectedImprovements) {
-    const updatedScores = { ...aiData }; // Create a copy to avoid mutating the original response
-
-    // Increase scores by 3 for selected improvements, up to a max of 10
-    Object.keys(selectedImprovements).forEach(key => {
-      if (updatedScores[key] !== undefined && selectedImprovements[key]) {
-        updatedScores[key] = Math.min(10, updatedScores[key] + 3);
-      }
-    });
-
-    return updatedScores;
-  }
-
-  function updateProductContainer(location, age, products) {
-    const productContainer = document.getElementById("productContainer");
-    productContainer.innerHTML = ""; // Clear existing content
-
-    if (location && age) {
-      // Displaying user-specific message
-      const info = document.createElement("div");
-      info.textContent = `Showing products for ${age} years old in ${location}`;
-      info.className = "info-text";
-      productContainer.appendChild(info);
-
-      /* ROUTE HERE TO GPT MODEL
-              EXTERNAL CODE RUNS, RETURNS
-          GPT RETURN */
-      const resultingProducts = [location, age]; //REPLACE WITH RETURN FROM GPT FUNCTION
-      arrangeProducts(resultingProducts);
-    }
-
-    //Product Creation
-    // **TO BE REPLACED BY SHOPIFY LIQUID ELEMENTS FOR ITEM DISPLAY
-    products.forEach((product) => {
-      const productTile = document.createElement("div");
-      productTile.className = "product-tile";
-      productTile.textContent = product;
-      productContainer.appendChild(productTile);
-    });
-  }
-
-  function arrangeProducts(products) {
-    const productContainer = document.getElementById("productContainer");
-    productContainer.innerHTML = ""; // Clear existing content
-
-    products.forEach((productArray) => {
-      const productTile = document.createElement("div");
-      productTile.className = "product-tile";
-
-      const productName = document.createElement("h3");
-      productName.textContent = productArray[0]; // Product name is the first element
-      productTile.appendChild(productName);
-
-      const score = document.createElement("p");
-      score.textContent = `Score: ${productArray[1]}`; // Score is the second element
-      productTile.appendChild(score);
-
-      productContainer.appendChild(productTile);
-    });
-  }
-
-  function createStatBar(statName, statValue) {
-    const statContainer = document.createElement("div");
-    statContainer.className = "stat-container";
-
-    const statLabel = document.createElement("span");
-    statLabel.textContent = statName + ": ";
-    statContainer.appendChild(statLabel);
-
-    const statBarOuter = document.createElement("div");
-    statBarOuter.className = "stat-bar-outer";
-
-    const statBar = document.createElement("div");
-    statBar.className = "stat-bar";
-    statBarOuter.appendChild(statBar);
-    statContainer.appendChild(statBarOuter);
-
-    requestAnimationFrame(() => {
-      statBar.style.setProperty('--target-width', `${(statValue / 10) * 100}%`);
-      statBar.classList.add('animate-grow'); // Add class to start the animation
-    });
-
-    return statContainer;
-  }
-
-  function updateUIWithProducts(backendResponse) {
-    const productContainer = document.getElementById("productContainer");
-    productContainer.innerHTML = ""; // Clear existing content
-
-    backendResponse.forEach(product => {
-      const productTile = document.createElement("div");
-      productTile.className = "product-tile";
-
-      const productName = document.createElement("h3");
-      productName.textContent = product.name; // Access product name
-      productTile.appendChild(productName);
-
-      // Convert score to stars
-      const scoreToStars = convertScoreToStars(product.score);
-      const stars = document.createElement("p");
-      stars.innerHTML = scoreToStars; // Display stars as innerHTML
-      productTile.appendChild(stars);
-
-      // Display top 5 stats
-      const statsList = Object.entries(product.stats)
-        .sort(([, a], [, b]) => b - a) // Sort stats by value, descending
-        .slice(0, 5); // Take top 5
-
-      statsList.forEach(([statName, statValue]) => {
-        const statBar = createStatBar(statName, statValue);
-        productTile.appendChild(statBar);
-      });
-
-      productContainer.appendChild(productTile);
-    });
-  }
-
-  // Converts a score to a star rating (HTML string)
-  function convertScoreToStars(score) {
-    let stars = '';
-    if (score > 250) {
-      stars = '⭐'; // 1 star for scores above 250
-    } else if (score > 150) {
-      stars = '⭐⭐'; // 2 stars for scores above 150
-    } else if (score > 100) {
-      stars = '⭐⭐⭐'; // 3 stars for scores above 100
-    } else if (score > 50) {
-      stars = '⭐⭐⭐⭐'; // 4 stars for scores above 50
-    } else {
-      stars = '⭐⭐⭐⭐⭐'; // 5 stars for scores 50 or below
-    }
-    // Implement half-stars if necessary by checking specific ranges and adjusting the string accordingly
-    return stars;
-  }
 
   document.getElementById("fetchButton").addEventListener("click", async function () {
     if (isRequestInProgress){
@@ -376,11 +203,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     aiRequestCompleted = false;
     showModal(); //Immediately show modal
-    const userProfile = constructUserProfile();
+    userProfile = constructUserProfile();
     console.log('fetch button pressed with user profile: ', userProfile);
 
     isRequestInProgress = true;
-    /*
+    
+    // Add a fresh event listener
+    submitImprovementsBtn.addEventListener("click", submitImprovementsHandler);
+    /*  THIS IS THE ENTRY --- should move to Submit button click event
     try {
       console.log("AI call Initiated, AIReqCompleted = ", aiRequestCompleted);
       const data = await callAIEndpoint(userProfile);
@@ -392,12 +222,11 @@ document.addEventListener("DOMContentLoaded", function () {
     } finally{
       isRequestInProgress=false;
     } */
-    prepareSubmitImprovementsButton(); //Reset event listeners
   })
 });
 
 // Comments Section Handling
-
+/*
 // Function to display AI comments
 function displayAIComments(comments) {
   const commentsList = document.getElementById("commentsList");
@@ -434,3 +263,4 @@ displayAIComments([
   { text: 'This is an insightful comment from Supple.', author: 'Supple AI' },
   { text: 'Another piece of wisdom.', author: 'Supple AI' }
 ]);
+*/
